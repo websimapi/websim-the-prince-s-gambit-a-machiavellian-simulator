@@ -1,6 +1,6 @@
 import { gameState, factions, eventTemplates } from './gameData.js';
 import * as AI from './ai.js';
-import gsap from 'gsap';
+import * as gsap from 'gsap';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Hide loading screen and show game
