@@ -1,6 +1,5 @@
 import { gameState, factions, eventTemplates } from './gameData.js';
 import * as AI from './ai.js';
-import { gsap } from 'gsap';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Hide loading screen and show game
@@ -8,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('loading-screen').style.display = 'none';
         const gameContainer = document.getElementById('game-container');
         gameContainer.style.display = 'block';
-        gsap.from(gameContainer, { opacity: 0, duration: 1 });
         
         initializeGame();
     }, 1000); 
@@ -29,9 +27,7 @@ function updateUI() {
     const totalVf = gameState.virtu + gameState.fortuna;
     const virtuScale = Math.max(0.1, (gameState.virtu / totalVf) * 1.5);
     const fortunaScale = Math.max(0.1, (gameState.fortuna / totalVf) * 1.5);
-    gsap.to('#virtu-serpent', { scale: virtuScale, duration: 0.5 });
-    gsap.to('#fortuna-serpent', { scale: fortunaScale, duration: 0.5 });
-
+    
     // Factions
     const factionList = document.getElementById('faction-list');
     factionList.innerHTML = '';
@@ -94,8 +90,6 @@ async function startNewEvent() {
     const descEl = document.getElementById('event-description');
     const choicesEl = document.getElementById('event-choices');
 
-    gsap.to(eventPanel, { opacity: 0.5, filter: 'blur(5px)', duration: 0.3 });
-
     // AI generates the event
     const eventData = await AI.generateEvent(gameState, factions, eventTemplates);
 
@@ -114,7 +108,6 @@ async function startNewEvent() {
         choicesEl.appendChild(button);
     });
 
-    gsap.to(eventPanel, { opacity: 1, filter: 'blur(0px)', duration: 0.5 });
     document.getElementById('next-turn-button').style.display = 'none';
 }
 
