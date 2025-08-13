@@ -1,0 +1,350 @@
+:root {
+    --parchment: #f5eeda;
+    --ink: #3a2e25;
+    --gold: #d4af37;
+    --gold-dark: #a98c2c;
+    --burn: #a58e72;
+    --virtu-color: #2e7d32;
+    --fortuna-color: #c62828;
+    --font-main: 'Cinzel', serif;
+}
+
+body {
+    background-color: #1a1410;
+    color: var(--ink);
+    font-family: var(--font-main);
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#loading-screen {
+    text-align: center;
+    color: var(--parchment);
+}
+
+.loading-text {
+    font-size: 2em;
+    letter-spacing: 2px;
+}
+
+.loading-spinner {
+    margin: 20px auto;
+    border: 4px solid var(--burn);
+    border-top: 4px solid var(--gold);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#game-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+#main-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#florence-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.4) sepia(0.2);
+    transform: scale(1.1);
+}
+
+#ui-container {
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 280px 1fr 400px;
+    grid-template-rows: 100px 1fr;
+    grid-template-areas:
+        "header header header"
+        "factions event codex";
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* General Panel Styling */
+#faction-panel, #event-panel, #codex-panel #codex-content {
+    background: url(parchment-texture.png);
+    border: 10px solid transparent;
+    border-image: url(gold-trim.png) 30 round;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    animation: ink-bleed-in 1s forwards;
+}
+
+@keyframes ink-bleed-in {
+    from {
+        opacity: 0;
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+h2 {
+    text-align: center;
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--burn);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Header & Status */
+#status-bar {
+    grid-area: header;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+}
+
+.status-dial {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--parchment);
+    box-shadow: 0 0 10px var(--gold);
+    text-align: center;
+    position: relative;
+}
+
+.dial-label {
+    font-size: 0.7em;
+    font-weight: bold;
+}
+
+.dial-value {
+    font-size: 1.8em;
+    font-weight: 700;
+}
+
+.dial-icon {
+    position: absolute;
+    bottom: -15px;
+    width: 30px;
+    height: 30px;
+    filter: drop-shadow(0 0 5px black);
+}
+
+#virtu-fortuna-meter {
+    width: 250px;
+    height: 40px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(to right, var(--virtu-color), var(--ink), var(--fortuna-color));
+    border-radius: 5px;
+    border: 2px solid var(--gold-dark);
+}
+
+#virtu-serpent, #fortuna-serpent {
+    position: absolute;
+    height: 60px;
+    transition: transform 0.5s ease-in-out;
+}
+
+#virtu-serpent { left: 0; transform-origin: left center; }
+#fortuna-serpent { right: 0; transform-origin: right center; }
+
+.meter-labels {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    color: var(--parchment);
+    font-weight: bold;
+    text-shadow: 1px 1px 2px black;
+}
+
+/* Faction Panel */
+#faction-panel { grid-area: factions; }
+#faction-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+}
+
+.faction-entry {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.faction-portrait {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--burn);
+    object-fit: cover;
+}
+.faction-info { flex-grow: 1; }
+.faction-name { font-weight: bold; }
+.trust-bar-container {
+    width: 100%;
+    height: 10px;
+    background-color: var(--burn);
+    border-radius: 5px;
+    border: 1px solid var(--ink);
+    overflow: hidden;
+}
+.trust-bar {
+    height: 100%;
+    background-color: var(--virtu-color);
+    width: 50%;
+    transition: width 0.5s ease;
+    border-radius: 5px;
+}
+
+/* Event Panel */
+#event-panel { grid-area: event; }
+#event-content { flex-grow: 1; }
+#event-description {
+    font-size: 1.1em;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    text-align: justify;
+}
+#event-choices {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.choice-button, #next-turn-button, #get-advice-button {
+    background-color: var(--ink);
+    color: var(--parchment);
+    border: 2px solid var(--gold-dark);
+    padding: 12px;
+    font-family: var(--font-main);
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.choice-button:hover, #next-turn-button:hover, #get-advice-button:hover {
+    background-color: var(--gold-dark);
+    color: var(--ink);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+#next-turn-button {
+    width: 100%;
+    background-color: var(--fortuna-color);
+}
+#next-turn-button:hover { background-color: #e53935; }
+
+
+/* Codex Panel */
+#codex-panel {
+    grid-area: codex;
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    position: relative;
+}
+
+#codex-toggle {
+    position: absolute;
+    left: -28px;
+    top: 50%;
+    transform: translateY(-50%);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    background: url(parchment-texture.png);
+    border: 10px solid transparent;
+    border-image: url(gold-trim.png) 30 round;
+    border-right: none;
+    padding: 20px 5px;
+    cursor: pointer;
+    font-size: 1.5em;
+    letter-spacing: 5px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    z-index: 12;
+}
+
+#codex-content {
+    height: 100%;
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    transform: translateX(0);
+}
+
+#codex-panel.collapsed #codex-content {
+    transform: translateX(100%);
+}
+
+#ai-advisor-box {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#advisor-prompt {
+    font-style: italic;
+    border-left: 3px solid var(--burn);
+    padding-left: 10px;
+}
+
+#advisor-response-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+}
+#advisor-response {
+    white-space: pre-wrap;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+#advisor-response-container .loading-text.small {
+    font-size: 0.9em;
+    color: var(--burn);
+    display: none; /* Initially hidden */
+}
+

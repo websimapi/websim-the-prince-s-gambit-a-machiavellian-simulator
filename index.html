@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Prince's Gambit: A Machiavellian Simulator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="loading-screen">
+        <div class="loading-text">Forging the State...</div>
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div id="game-container" style="display: none;">
+        <div id="main-view">
+            <img src="florence-background.png" id="florence-bg" alt="A Renaissance depiction of Florence">
+        </div>
+
+        <div id="ui-container">
+            <header id="status-bar">
+                <div class="status-dial" id="capital-dial">
+                    <div class="dial-label">Political Capital</div>
+                    <div class="dial-value" id="capital-value">50</div>
+                    <img src="coin-icon.png" class="dial-icon" alt="Coin Icon">
+                </div>
+                <div class="status-dial" id="perception-dial">
+                    <div class="dial-label">Public Perception</div>
+                    <div class="dial-value" id="perception-value">50</div>
+                     <img src="balance-icon.png" class="dial-icon" alt="Balance Icon">
+                </div>
+                <div id="virtu-fortuna-meter">
+                    <img src="serpent-virtu.png" id="virtu-serpent" alt="Green serpent representing Virtu">
+                    <img src="serpent-fortuna.png" id="fortuna-serpent" alt="Red serpent representing Fortuna">
+                    <div class="meter-labels">
+                        <span>Virtù</span>
+                        <span>Fortuna</span>
+                    </div>
+                </div>
+            </header>
+
+            <aside id="faction-panel">
+                <h2>Factions</h2>
+                <div id="faction-list">
+                    <!-- Faction trust will be populated by JS -->
+                </div>
+            </aside>
+
+            <main id="event-panel">
+                <div id="event-content">
+                    <h2 id="event-title">Awaiting Developments...</h2>
+                    <p id="event-description">Your counsel is sought, Machiavelli. An opportunity or a crisis surely looms on the horizon. Be prepared to act.</p>
+                </div>
+                <div id="event-choices">
+                    <!-- Choices will be populated by JS -->
+                </div>
+                <button id="next-turn-button">Advance the Day</button>
+            </main>
+
+            <aside id="codex-panel">
+                <div id="codex-toggle"><span>C</span><span>O</span><span>D</span><span>E</span><span>X</span></div>
+                <div id="codex-content">
+                    <h2>Advisor's Codex</h2>
+                    <div id="ai-advisor-box">
+                        <p id="advisor-prompt">What is our grand strategy?</p>
+                        <button id="get-advice-button">Seek Counsel</button>
+                        <div id="advisor-response-container">
+                             <div class="loading-text small">The mind of the state considers...</div>
+                            <p id="advisor-response"></p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </div>
+    <audio id="music-major" loop src="background-music-major.mp3"></audio>
+    <audio id="music-minor" loop src="background-music-minor.mp3"></audio>
+    <audio id="ui-click-sound" src="ui-click.mp3"></audio>
+    <audio id="wax-seal-sound" src="wax-seal-stamp.mp3"></audio>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "gsap": "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+        }
+    }
+    </script>
+    <script type="module" src="script.js"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
+
