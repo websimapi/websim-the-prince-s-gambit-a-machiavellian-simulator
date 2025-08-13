@@ -358,9 +358,31 @@ h2 {
 }
 
 @media (max-width: 850px) {
+    body {
+        height: auto;
+        overflow-y: auto;
+    }
+
+    #game-container {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    #main-view {
+        position: fixed; /* Keep background fixed */
+        z-index: 0;
+    }
+    
+    #florence-bg {
+        filter: brightness(0.3) sepia(0.2);
+    }
+    
     #ui-container {
+        position: relative; /* Allow scrolling over fixed background */
+        z-index: 1;
+        height: auto;
         grid-template-columns: 1fr;
-        grid-template-rows: auto minmax(0, 1fr) auto;
+        grid-template-rows: auto auto auto; /* Allow rows to size to content */
         grid-template-areas:
             "header"
             "event"
@@ -393,12 +415,15 @@ h2 {
         height: 35px;
     }
 
-    #event-panel, #faction-panel {
+    #event-panel {
         padding: 15px;
         border-width: 8px;
     }
+    
     #faction-panel {
-        max-height: 200px;
+        padding: 15px;
+        border-width: 8px;
+        max-height: 250px;
     }
 
     h2 { font-size: 1.2em; }
@@ -411,18 +436,18 @@ h2 {
         align-items: center;
         justify-content: center;
         position: fixed;
-        bottom: 10px;
-        right: 10px;
+        bottom: 15px;
+        right: 15px;
         background-color: var(--ink);
         color: var(--parchment);
         border: 2px solid var(--gold);
         border-radius: 50%;
-        width: 60px;
-        height: 60px;
+        width: 65px;
+        height: 65px;
         z-index: 100;
         cursor: pointer;
         font-family: var(--font-main);
-        font-size: 0.8em;
+        font-size: 0.9em;
         font-weight: bold;
         box-shadow: 0 0 15px rgba(0,0,0,0.7);
     }
