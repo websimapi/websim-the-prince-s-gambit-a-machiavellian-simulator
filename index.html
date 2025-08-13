@@ -60,20 +60,23 @@
                 <button id="next-turn-button">Advance the Day</button>
             </main>
 
-            <aside id="codex-panel">
-                <div id="codex-toggle"><span>C</span><span>O</span><span>D</span><span>E</span><span>X</span></div>
-                <div id="codex-content">
-                    <h2>Advisor's Codex</h2>
-                    <div id="ai-advisor-box">
-                        <p id="advisor-prompt">What is our grand strategy?</p>
-                        <button id="get-advice-button">Seek Counsel</button>
-                        <div id="advisor-response-container">
-                             <div class="loading-text small">The mind of the state considers...</div>
-                            <p id="advisor-response"></p>
+            <div id="mobile-codex-overlay" class="collapsed">
+                <aside id="codex-panel">
+                    <div id="codex-content">
+                        <h2>Advisor's Codex</h2>
+                        <div id="ai-advisor-box">
+                            <p id="advisor-prompt">What is our grand strategy?</p>
+                            <button id="get-advice-button">Seek Counsel</button>
+                            <div id="advisor-response-container">
+                                 <div class="loading-text small">The mind of the state considers...</div>
+                                <p id="advisor-response"></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </aside>
+                </aside>
+            </div>
+
+            <div id="mobile-codex-toggle">CODEX</div>
 
         </div>
     </div>

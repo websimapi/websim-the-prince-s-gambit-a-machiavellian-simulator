@@ -82,6 +82,23 @@ function setupEventListeners() {
         playSound('ui-click-sound');
         document.getElementById('codex-panel').classList.toggle('collapsed');
     });
+
+    // Mobile codex toggle
+    const mobileCodexToggle = document.getElementById('mobile-codex-toggle');
+    const mobileCodexOverlay = document.getElementById('mobile-codex-overlay');
+    
+    function toggleMobileCodex() {
+        playSound('ui-click-sound');
+        const isCollapsed = mobileCodexOverlay.classList.toggle('collapsed');
+        mobileCodexToggle.textContent = isCollapsed ? 'CODEX' : 'CLOSE';
+    }
+
+    mobileCodexToggle.addEventListener('click', toggleMobileCodex);
+    mobileCodexOverlay.addEventListener('click', (e) => {
+        if (e.target === mobileCodexOverlay) { // Only if clicking the dark background
+            toggleMobileCodex();
+        }
+    });
 }
 
 async function startNewEvent() {

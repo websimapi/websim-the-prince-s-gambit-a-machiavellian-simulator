@@ -283,6 +283,8 @@ h2 {
     box-shadow: none;
     padding: 0;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 #codex-toggle {
@@ -309,6 +311,8 @@ h2 {
     height: 100%;
     transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
     transform: translateX(0);
+    display: flex;
+    flex-direction: column;
 }
 
 #codex-panel.collapsed #codex-content {
@@ -348,3 +352,117 @@ h2 {
     display: none; /* Initially hidden */
 }
 
+/* Mobile Overrides */
+#mobile-codex-toggle, #mobile-codex-overlay {
+    display: none;
+}
+
+@media (max-width: 850px) {
+    #ui-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        grid-template-areas:
+            "header"
+            "event"
+            "factions";
+        padding: 10px;
+        gap: 10px;
+    }
+
+    /* Hide desktop codex elements */
+    #codex-panel, #codex-toggle {
+        display: none;
+    }
+
+    #status-bar {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .status-dial {
+        width: 80px;
+        height: 80px;
+        border-width: 1.5px;
+    }
+    .dial-label { font-size: 0.6em; }
+    .dial-value { font-size: 1.6em; }
+    .dial-icon { width: 25px; height: 25px; bottom: -12px; }
+
+    #virtu-fortuna-meter {
+        width: 200px;
+        height: 35px;
+    }
+
+    #event-panel, #faction-panel {
+        padding: 15px;
+        border-width: 8px;
+    }
+    #faction-panel {
+        max-height: 200px;
+    }
+
+    h2 { font-size: 1.2em; }
+    #event-description { font-size: 1em; line-height: 1.5; }
+    .choice-button, #next-turn-button, #get-advice-button { padding: 10px; font-size: 0.9em; }
+
+    /* Mobile Codex Implementation */
+    #mobile-codex-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        background-color: var(--ink);
+        color: var(--parchment);
+        border: 2px solid var(--gold);
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        z-index: 100;
+        cursor: pointer;
+        font-family: var(--font-main);
+        font-size: 0.8em;
+        font-weight: bold;
+        box-shadow: 0 0 15px rgba(0,0,0,0.7);
+    }
+    
+    #mobile-codex-overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.6);
+        z-index: 99;
+        transition: opacity 0.4s ease;
+    }
+
+    #mobile-codex-overlay.collapsed {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    #mobile-codex-overlay #codex-panel {
+        display: flex;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 85%;
+        max-width: 400px;
+        height: 100%;
+        padding: 0;
+        transform: translateX(0);
+        transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    
+    #mobile-codex-overlay.collapsed #codex-panel {
+        transform: translateX(100%);
+    }
+
+    #mobile-codex-overlay #codex-content {
+        transform: translateX(0);
+        border-right: none;
+    }
+}
