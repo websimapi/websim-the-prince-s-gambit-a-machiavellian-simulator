@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initializeGame() {
+    setupMobileCodex();
     updateUI();
     setupEventListeners();
     playBackgroundMusic();
@@ -62,20 +63,25 @@ function setupEventListeners() {
         startNewEvent();
     });
 
-    document.getElementById('get-advice-button').addEventListener('click', async () => {
-        playSound('ui-click-sound');
-        const prompt = document.getElementById('advisor-prompt').textContent;
-        const responseContainer = document.getElementById('advisor-response-container');
-        const responseEl = document.getElementById('advisor-response');
-        const loadingEl = responseContainer.querySelector('.loading-text');
+    // Use querySelector to handle both desktop and mobile buttons
+    document.querySelectorAll('#get-advice-button').forEach(button => {
+        button.addEventListener('click', async () => {
+            playSound('ui-click-sound');
+            // Use the prompt from the visible codex
+            const prompt = document.querySelector('#codex-panel:not(.desktop-only) #advisor-prompt, #mobile-codex-content #advisor-prompt').textContent;
+            
+            const responseContainers = document.querySelectorAll('#advisor-response-container');
+            const responseEls = document.querySelectorAll('#advisor-response');
+            const loadingEls = document.querySelectorAll('#advisor-response-container .loading-text');
 
-        responseEl.textContent = '';
-        loadingEl.style.display = 'block';
+            responseEls.forEach(el => el.textContent = '');
+            loadingEls.forEach(el => el.style.display = 'block');
 
-        const advice = await AI.getAdvice(prompt, gameState, factions);
-        
-        loadingEl.style.display = 'none';
-        responseEl.textContent = advice;
+            const advice = await AI.getAdvice(prompt, gameState, factions);
+            
+            loadingEls.forEach(el => el.style.display = 'none');
+            responseEls.forEach(el => el.textContent = advice);
+        });
     });
 
     document.getElementById('codex-toggle').addEventListener('click', () => {
@@ -99,6 +105,16 @@ function setupEventListeners() {
             toggleMobileCodex();
         }
     });
+}
+
+function setupMobileCodex() {
+    const codexContent = document.querySelector('#codex-panel .codex-content');
+    if (codexContent) {
+        const mobileContainer = document.getElementById('mobile-codex-content');
+        const clonedContent = codexContent.cloneNode(true);
+        // Ensure the cloned button has a unique enough selector if needed, but class/tag is fine.
+        mobileContainer.appendChild(clonedContent);
+    }
 }
 
 async function startNewEvent() {

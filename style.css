@@ -85,7 +85,7 @@ body {
 }
 
 /* General Panel Styling */
-#faction-panel, #event-panel, #codex-panel #codex-content {
+#faction-panel, #event-panel, #codex-panel #codex-content, #mobile-codex-overlay #mobile-codex-content {
     background: url(parchment-texture.png);
     border: 10px solid transparent;
     border-image: url(gold-trim.png) 30 round;
@@ -316,7 +316,7 @@ h2 {
 }
 
 #codex-panel.collapsed #codex-content {
-    transform: translateX(100%);
+    transform: translateX(calc(100% + 10px)); /* Account for border */
 }
 
 #ai-advisor-box {
@@ -370,7 +370,7 @@ h2 {
     }
 
     /* Hide desktop codex elements */
-    #codex-panel, #codex-toggle {
+    #codex-panel.desktop-only, #codex-toggle {
         display: none;
     }
 
@@ -444,25 +444,23 @@ h2 {
         pointer-events: none;
     }
 
-    #mobile-codex-overlay #codex-panel {
+    #mobile-codex-overlay #mobile-codex-content {
         display: flex;
+        flex-direction: column;
         position: absolute;
         top: 0;
         right: 0;
         width: 85%;
         max-width: 400px;
         height: 100%;
-        padding: 0;
+        padding: 20px;
+        box-sizing: border-box;
         transform: translateX(0);
         transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        border-right: none;
     }
     
-    #mobile-codex-overlay.collapsed #codex-panel {
+    #mobile-codex-overlay.collapsed #mobile-codex-content {
         transform: translateX(100%);
-    }
-
-    #mobile-codex-overlay #codex-content {
-        transform: translateX(0);
-        border-right: none;
     }
 }
